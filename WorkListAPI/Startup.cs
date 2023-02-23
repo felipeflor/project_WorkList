@@ -34,7 +34,9 @@ namespace WorkListAPI
 
             //Repositories
             services.AddScoped<IUser, UserRepository>();
+
             //Controllers
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -52,6 +54,11 @@ namespace WorkListAPI
             context.Database.EnsureCreated();
 
             app.UseRouting();
+
+            app.UseCors(c => c
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseAuthorization();
 
