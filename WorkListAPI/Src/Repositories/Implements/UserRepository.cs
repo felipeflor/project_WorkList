@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WorkListAPI.Src.Repositories;
 
-namespace TaskAPI.Src.Repositories.Implements
+namespace WorkListAPI.Src.Repositories.Implements
 {
     /// <summary>
     /// <para>summary: Class responsable to implement IUser</para>

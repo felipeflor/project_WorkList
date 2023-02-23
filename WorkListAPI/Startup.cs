@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorkListAPI.Src.Repositories.Implements;
 using WorkListAPI.Src.Contexts;
+using WorkListAPI.Src.Repositories;
 
 namespace WorkListAPI
 {
@@ -30,6 +32,8 @@ namespace WorkListAPI
             services.AddDbContext<Context>(opt =>
             opt.UseSqlServer(Configuration["ConnectionStringsDev:DefaultConnection"]));
 
+            //Repositories
+            services.AddScoped<IUser, UserRepository>();
             //Controllers
             services.AddControllers();
         }
