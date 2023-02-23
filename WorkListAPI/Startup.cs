@@ -34,6 +34,7 @@ namespace WorkListAPI
 
             //Repositories
             services.AddScoped<IUser, UserRepository>();
+            services.AddScoped<IWork, WorkRepository>();
 
             //Controllers
             services.AddCors();
