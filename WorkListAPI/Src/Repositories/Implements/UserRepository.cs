@@ -13,8 +13,8 @@ namespace WorkListAPI.Src.Repositories.Implements
     /// <summary>
     /// <para>summary: Class responsable to implement IUser</para>
     /// <para>Created by: Felipe Flor</para>
-    /// <para>Versão: 1.0</para>
-    /// <para>Data: 11/02/2023</para>
+    /// <para>Versin: 1.0</para>
+    /// <para>Date: 11/02/2023</para>
     /// </summary>
     public class UserRepository : IUser
     {
@@ -33,8 +33,8 @@ namespace WorkListAPI.Src.Repositories.Implements
         /// <summary>
         /// <para>summary: Method async to get an user by email</para>
         /// <para>Created by: Felipe Flor</para>
-        /// <para>Versão: 1.0</para>
-        /// <para>Data: 11/02/2023</para>
+        /// <para>Version: 1.0</para>
+        /// <para>Date: 11/02/2023</para>
         /// </summary>
         public async Task<User> FindUserByEmailAsync(string email)
         {
@@ -44,8 +44,8 @@ namespace WorkListAPI.Src.Repositories.Implements
         /// <summary>
         /// <para>summary: Method async to save a new user</para>
         /// <para>Created by: Felipe Flor</para>
-        /// <para>Versão: 1.0</para>
-        /// <para>Data: 11/02/2023</para>
+        /// <para>Version: 1.0</para>
+        /// <para>Date: 11/02/2023</para>
         /// </summary>
         public async Task NewUserAsync(User user)
         {
@@ -54,7 +54,8 @@ namespace WorkListAPI.Src.Repositories.Implements
                 {
                     Email = user.Email,
                     Name = user.Name,
-                    Password = user.Password
+                    Password = user.Password,
+                    Type = user.Type
                 });
             await _context.SaveChangesAsync();
         }

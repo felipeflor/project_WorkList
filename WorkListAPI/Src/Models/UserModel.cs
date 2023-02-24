@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using WorkListAPI.Src.Utilities;
 
 namespace WorkListAPI.Src.Models
 {
@@ -21,6 +22,8 @@ namespace WorkListAPI.Src.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        [Required]
+        public UserType Type { get; set; }
 
         [JsonIgnore, InverseProperty("Creator")]
         public List<Work> MyWorks { get; set; }
