@@ -45,7 +45,7 @@ namespace WorkListAPI.Src.Repositories.Implements
         /// <param name="id">Id of work</param>
         /// <return>WorkModel</return>
         /// <exception cref="Exception">Id can't br null</exception>
-        public async Task<Work> FindWorkById(int id)
+        public async Task<Work> FindWorkByIdAsync(int id)
         {
             if (!ExistId(id)) throw new Exception("Work Id not found!");
 
@@ -65,7 +65,7 @@ namespace WorkListAPI.Src.Repositories.Implements
         /// </summary>
         /// <param name="work">Constructor to register work</param>
         /// <exception cref="Exception">Id can't be null</exception>
-        public async Task NewTaskAsync(Work work)
+        public async Task NewWorkAsync(Work work)
         {
             if (!ExistUserId(work.Creator.Id)) throw new Exception("User Id not found");
 
@@ -95,7 +95,7 @@ namespace WorkListAPI.Src.Repositories.Implements
         /// <exception cref="Exception">Id can't be null</exception>
         public async Task UpdateWorkAsync(Work work)
         {
-            var workExist = await FindWorkById(work.Id);
+            var workExist = await FindWorkByIdAsync(work.Id);
             workExist.Title = work.Title;
             workExist.Description = work.Description;
             workExist.Status = work.Status;
@@ -106,7 +106,7 @@ namespace WorkListAPI.Src.Repositories.Implements
 
         public async Task DeleteWorkAsync(int id)
         {
-            _context.Works.Remove(await FindWorkById(id));
+            _context.Works.Remove(await FindWorkByIdAsync(id));
             await _context.SaveChangesAsync();
         }
         #endregion
