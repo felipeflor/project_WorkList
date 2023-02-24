@@ -13,6 +13,11 @@ using System.Threading.Tasks;
 using WorkListAPI.Src.Repositories.Implements;
 using WorkListAPI.Src.Contexts;
 using WorkListAPI.Src.Repositories;
+using WorkListAPI.Src.Services;
+using WorkListAPI.Src.Services.Implements;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WorkListAPI
 {
@@ -39,34 +44,60 @@ namespace WorkListAPI
             //Controllers
             services.AddCors();
             services.AddControllers();
-        }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Context context)
-        {
-            //Development environment
-            if (env.IsDevelopment())
+            //Configuration Services
+            services.AddScoped<IAuthentication, AuthenticationServices>();
+
+            // Configuração do Token Autenticação JWTBearer
+            var key = Encoding.ASCII.GetBytes(Configuration["Settings:Secret"]);
+            services.AddAuthentication(a =>
             {
-                context.Database.EnsureCreated();
-                app.UseDeveloperExceptionPage();
+                a.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+                a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(b =>
+            {
+                b.RequireHttpsMetadata = false;
+                b.SaveToken = true;
+                b.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             }
-
-            //Prodution environment
-            context.Database.EnsureCreated();
-
-            app.UseRouting();
-
-            app.UseCors(c => c
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            );
         }
+
+    }
+    
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Context context)
+    {
+        //Development environment
+        if (env.IsDevelopment())
+        {
+            context.Database.EnsureCreated();
+            app.UseDeveloperExceptionPage();
+        }
+
+        //Prodution environment
+        context.Database.EnsureCreated();
+
+        app.UseRouting();
+
+        app.UseCors(c => c
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
+        app.UseAuthorization();
+        app.UseAuthentication();
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 }

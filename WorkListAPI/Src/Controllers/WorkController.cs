@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using WorkListAPI.Src.Models;
@@ -24,6 +25,7 @@ namespace WorkListAPI.Src.Controllers
 
         #region Methods
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult> FindAllWorksAsync()
         {
             var list = await _repository.FindAllWorksAsync();
@@ -34,6 +36,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpGet("id/{idWork}")]
+        [Authorize]
         public async Task<ActionResult> FindWorkByIdAsync([FromRoute] int idWork)
         {
             try
@@ -47,6 +50,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> NewWorkAsync([FromBody] Work work)
         {
             try
@@ -61,6 +65,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult> UpdateWorkAsync([FromBody] Work work)
         {
             try
@@ -75,6 +80,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpDelete("delete/{idWork}")]
+        [Authorize]
         public async Task<ActionResult> DeleteWorkAsync([FromRoute] int idWork)
         {
             try
