@@ -25,7 +25,7 @@ namespace WorkListAPI.Src.Controllers
 
         #region Methods
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> FindAllWorksAsync()
         {
             var list = await _repository.FindAllWorksAsync();
@@ -36,7 +36,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpGet("id/{idWork}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> FindWorkByIdAsync([FromRoute] int idWork)
         {
             try
@@ -50,7 +50,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> NewWorkAsync([FromBody] Work work)
         {
             try
@@ -65,7 +65,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> UpdateWorkAsync([FromBody] Work work)
         {
             try
@@ -80,7 +80,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpDelete("delete/{idWork}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> DeleteWorkAsync([FromRoute] int idWork)
         {
             try

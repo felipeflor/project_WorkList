@@ -29,7 +29,7 @@ namespace WorkListAPI.Src.Controllers
 
         #region Methods
         [HttpGet("email/{emailUser}")]
-        [Authorize(Roles = "NORMAL,ADMINISTRATOR")]
+        //[Authorize(Roles = "NORMAL,ADMINISTRATOR")]
         public async Task<ActionResult> FindUserByEmailAsync([FromRoute] string emailUser)
         {
             var user = await _repository.FindUserByEmailAsync(emailUser);
@@ -40,7 +40,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpPost("register")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult> NewUserAsync([FromBody] User user)
         {
             try
@@ -56,7 +56,7 @@ namespace WorkListAPI.Src.Controllers
         }
 
         [HttpPost("login")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult> LoginAsync([FromBody] User user)
         {
             var aux = await _repository.FindUserByEmailAsync(user.Email);
